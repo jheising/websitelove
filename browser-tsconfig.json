@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "module": "esnext",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": false,
+        "target": "es6",
+        "lib": ["es6", "dom"],
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    }
+}
