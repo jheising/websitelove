@@ -1,13 +1,13 @@
-import {APILove} from "apilove";
-import express from "express";
+import {APIAuthUtils, APILove} from "apilove";
 import {SiteRenderer} from "websitelove-lib";
 import {Config} from "./Config";
 
 if (Config.USE_LOCAL_CDN) {
+    const express = require("express");
     APILove.app.use("/cdn", express.static("./cdn"));
 }
 
-SiteRenderer.APPLICATION_SCRIPT_PATH =  `${Config.CDN_BASE_URL}/${Config.APP_VERSION}/app.js`;
+SiteRenderer.APPLICATION_SCRIPT_PATH = `${Config.CDN_BASE_URL}/${Config.APP_VERSION}/app.js`;
 
 // This is the only part that is required.
 module.exports.handler = APILove.start({

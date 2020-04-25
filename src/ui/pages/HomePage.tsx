@@ -3,7 +3,7 @@ import {Page} from "./Page";
 
 export class HomePage extends Page
 {
-    render() {
+    renderPageContent() {
         return "Welcome home!";
     }
 }
