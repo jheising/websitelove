@@ -17,7 +17,7 @@ class App {
         return (await Promise.resolve().then(() => __importStar(require(`./ui/pages/${pageName}`))))[pageName];
     }
     static async renderServerPage(pageName, pageProps, req, res) {
-        await websitelove_lib_1.SiteRenderer.renderServerPage("HomePage", App.pageLoader, pageProps, req, res, {});
+        await websitelove_lib_1.SiteRenderer.renderServerPage(pageName, App.pageLoader, pageProps, req, res, {});
     }
 }
 exports.App = App;

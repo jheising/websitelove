@@ -12,7 +12,7 @@ export class App {
     }
 
     static async renderServerPage(pageName: string, pageProps: object, req, res) {
-        await SiteRenderer.renderServerPage("HomePage", App.pageLoader, pageProps, req, res, {});
+        await SiteRenderer.renderServerPage(pageName, App.pageLoader, pageProps, req, res, {});
     }
 }
 
