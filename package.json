@@ -33,6 +33,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "websitelove-lib": "file:../websitelove-lib"
+    "websitelove-lib": "git+https://github.com/jheising/websitelove-lib.git"
   }
 }
