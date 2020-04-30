@@ -1,5 +1,5 @@
-import {APIAuthUtils, APILove} from "apilove";
-import {SiteRenderer} from "websitelove-lib";
+import {APILove} from "apilove";
+import {SiteRenderer, SiteConfig} from "websitelove-lib";
 import {Config} from "./Config";
 
 if (Config.USE_LOCAL_CDN) {
@@ -7,7 +7,12 @@ if (Config.USE_LOCAL_CDN) {
     APILove.app.use("/cdn", express.static("./cdn"));
 }
 
-SiteRenderer.APPLICATION_SCRIPT_PATH = `${Config.CDN_BASE_URL}/${Config.APP_VERSION}/app.js`;
+const CURRENT_CDN_BASE_URL = `${Config.CDN_BASE_URL}/${Config.APP_VERSION}`;
+
+SiteConfig.cdnBaseURL = CURRENT_CDN_BASE_URL;
+// SiteConfig.apiBaseURL = ""; /* Set this to your API URL  */
+
+SiteRenderer.APPLICATION_SCRIPT_PATH = `${CURRENT_CDN_BASE_URL}/app.js`;
 
 // This is the only part that is required.
 module.exports.handler = APILove.start({
