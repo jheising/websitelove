@@ -39,7 +39,7 @@ ScriptUtils.question = async (question, defaultValue) => {
         if (defaultValue) {
             question += ` (${defaultValue})`;
         }
-        rl.question(question + ScriptUtils.DEFAULT_PROMPT_SUFFIX, resolve);
+        rl.question(question, resolve);
     }));
     if (!answer || answer === "") {
         if (defaultValue) {
