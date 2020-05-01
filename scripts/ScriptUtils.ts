@@ -10,10 +10,28 @@ export class ScriptUtils {
 
     static DEFAULT_PROMPT_SUFFIX = " : ";
 
-    static question = async (question: string): Promise<string> => {
-        return new Promise((resolve) => {
+    static question = async (question: string, defaultValue?:string): Promise<string> => {
+        const answer = await (new Promise<string>((resolve) => {
+
+            question = question + ScriptUtils.DEFAULT_PROMPT_SUFFIX;
+
+            if(defaultValue)
+            {
+                question += ` (${defaultValue})`;
+            }
+
             rl.question(question + ScriptUtils.DEFAULT_PROMPT_SUFFIX, resolve);
-        });
+        }));
+
+        if(!answer || answer === "")
+        {
+            if(defaultValue)
+            {
+                return defaultValue;
+            }
+        }
+
+        return answer;
     };
 
     static confirm = async (message: string, defaultResponse?: boolean): Promise<boolean> => {

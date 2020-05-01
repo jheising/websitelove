@@ -33,10 +33,20 @@ class ScriptUtils {
 }
 exports.ScriptUtils = ScriptUtils;
 ScriptUtils.DEFAULT_PROMPT_SUFFIX = " : ";
-ScriptUtils.question = async (question) => {
-    return new Promise((resolve) => {
+ScriptUtils.question = async (question, defaultValue) => {
+    const answer = await (new Promise((resolve) => {
+        question = question + ScriptUtils.DEFAULT_PROMPT_SUFFIX;
+        if (defaultValue) {
+            question += ` (${defaultValue})`;
+        }
         rl.question(question + ScriptUtils.DEFAULT_PROMPT_SUFFIX, resolve);
-    });
+    }));
+    if (!answer || answer === "") {
+        if (defaultValue) {
+            return defaultValue;
+        }
+    }
+    return answer;
 };
 ScriptUtils.confirm = async (message, defaultResponse) => {
     const answer = trim_1.default(await ScriptUtils.question(message)).toLowerCase();
