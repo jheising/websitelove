@@ -1,0 +1,1 @@
+Add any scripts you want to be able to run on the server or dev machine. Examples might be creating users, initializing DB indexes, etc.
