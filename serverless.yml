@@ -1,16 +1,14 @@
 plugins:
   - serverless-api-compression
-  - serverless-s3-sync
 
 custom:
-  PRODUCT_NAME: "${env:PRODUCT_NAME}"
+  SERVICE_NAME: ${env:SERVICE_NAME}
   STAGE: ${opt:stage, "dev"}
   STAGE_HOST_PREFIX:
     dev: "dev-"
     prod: ""
-  REGION: "us-west-2"
-  SERVICE_AND_STAGE: ${self:service}-${opt:stage}
-  PRODUCT_AND_STAGE: ${self:custom.PRODUCT_NAME}-${opt:stage}
+  REGION: ${opt:${env:AWS_REGION}, "us-west-2"}
+  STAGE_AND_SERVICE: ${self:custom.STAGE}-${self:custom.SERVICE_NAME}
 
   NODE_ENV:
     dev: development
@@ -18,22 +16,23 @@ custom:
     contentEncoding:
       contentCompression: 100 # Minimum body size required for compression in bytes
 
-service: "${self:custom.PRODUCT_NAME}-web"
+service: "${self:custom.SERVICE_NAME}-web"
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   stage: ${self:custom.STAGE}
   region: ${self:custom.REGION}
-  apiName: ${self:custom.SERVICE_AND_STAGE}
+  apiName: ${self:custom.STAGE_AND_SERVICE}
   profile: ${opt:profile}
   memorySize: 512
   timeout: 30
   logRetentionInDays: 14
   environment:
     NODE_ENV: "${self:custom.NODE_ENV.${opt:stage, self:provider.stage}}"
-    ENCRYPTION_SECRET: "${ssm:/${self:custom.SERVICE_AND_STAGE}/ENCRYPTION_SECRET~true}"
-    JWT_SECRET: "${ssm:/${self:custom.PRODUCT_AND_STAGE}/JWT_SECRET~true}"
+    ENCRYPTION_SECRET: "${ssm:/aws/reference/secretsmanager/${self:custom.STAGE}/${self:custom.SERVICE_NAME}/ENCRYPTION_SECRET~true}"
+    JWT_SECRET: "${ssm:/aws/reference/secretsmanager/${self:custom.STAGE}/${self:custom.SERVICE_NAME}/JWT_SECRET~true}"
+    CDN_BASE_URL: ${env:CDN_BASE_URL}
 
 package:
   exclude:
