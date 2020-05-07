@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack --mode development -w",
-    "server:dev": "webpack --mode development -w & node WebHandler"
+    "server:dev": "webpack --mode development -w & node WebHandler",
+    "build:prod": "webpack --mode production",
+    "build:dev": "webpack --mode development"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +15,7 @@
     "@types/node": "^13.13.2",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
@@ -33,6 +36,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "websitelove-lib": "git+https://github.com/jheising/websitelove-lib.git"
+    "websitelove-lib": "../websitelove-lib"
   }
 }

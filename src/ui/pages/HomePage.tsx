@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "./Page";
+import {Page} from "websitelove-lib";
 
 export class HomePage extends Page
 {

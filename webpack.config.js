@@ -3,11 +3,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 let uiVersion = require("./package.json").version;
-const CDN_PATH = process.env.CDN_PATH || '/cdn/';
 
 module.exports = (env, argv) => {
+
+    const CDN_BASE_URL = argv.cdnBaseURL || process.env.CDN_BASE_URL || '/cdn/';
 
     let config = {
         watchOptions: {
@@ -20,7 +22,7 @@ module.exports = (env, argv) => {
         output: {
             path: path.resolve(__dirname, "cdn", uiVersion),
             filename: `[name].js`,
-            publicPath: `${CDN_PATH}${uiVersion}/`
+            publicPath: `${CDN_BASE_URL}${uiVersion}/`
         },
         optimization: {
             runtimeChunk: false,
@@ -68,6 +70,7 @@ module.exports = (env, argv) => {
             extensions: [".ts", ".tsx", ".js"]
         },
         plugins: [
+            new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
                 filename: `[name].css`
             }),

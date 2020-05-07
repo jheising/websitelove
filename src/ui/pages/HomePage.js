@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Page_1 = require("./Page");
-class HomePage extends Page_1.Page {
+const websitelove_lib_1 = require("websitelove-lib");
+class HomePage extends websitelove_lib_1.Page {
     renderPageContent() {
         return "Welcome home!";
     }
